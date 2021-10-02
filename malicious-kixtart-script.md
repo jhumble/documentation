@@ -5,11 +5,11 @@ Attack flow
 Phish -> HTML attachment /w link -> XLS /w macro -> MSI (Kixtart) -> MSI (Rebol) -> FlawedGrace
 
 # Email
-Sender: 	admin@commaxdiafon.com
+Sender: 	`admin@commaxdiafon.com`
 
-Subject:  	Claim Processing 20210925
+Subject:  	`Claim Processing 20210925`
 
-Received: 	from 196-60win.webimhosting.com (HELO webimhosting.com) ([217.195.196.60])
+Received: 	`from 196-60win.webimhosting.com (HELO webimhosting.com) ([217.195.196.60])`
 
 Contains an html attachment which contains a link to download a malicious XLS hxxps://cdn-8846-sharepoint-office.com/CL09302021_00137[.]xls 
 
