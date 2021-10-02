@@ -1,6 +1,6 @@
 # Summary
 Suspected TA505 Phish
-Attack flow:
+Attack flow
 Phish -> HTML attachment /w link -> XLS /w macro -> MSI (Kixtart) -> MSI (Rebol) -> FlawedGrace
 
 # Email
