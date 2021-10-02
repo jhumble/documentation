@@ -1,16 +1,16 @@
-#Summary
+# Summary
 Suspected TA505 Phish
 Attack flow:
 Phish -> HTML attachment /w link -> XLS /w macro -> MSI (Kixtart) -> MSI (Rebol) -> FlawedGrace
 
-#Email
+# Email
 Sender: 	admin@commaxdiafon.com
 Subject:  	Claim Processing 20210925
 Received: 	from 196-60win.webimhosting.com (HELO webimhosting.com) ([217.195.196.60])
 
 Contains an html attachment which contains a link to download a malicious XLS hxxps://cdn-8846-sharepoint-office.com/CL09302021_00137[.]xls 
 
-#XLS (deaad3ea1c708cd99e41c4043169aa4d)
+# XLS (deaad3ea1c708cd99e41c4043169aa4d)
 	- Macro
 		Function Auto_Open()
 			Dim a As New ScriptControl
@@ -23,10 +23,10 @@ Contains an html attachment which contains a link to download a malicious XLS hx
 	
 	- Pulls down and executes MSI 
 
-#MSI (84ec41afdc49c2ee8dff9ba07ba5c9a4)
+# MSI (84ec41afdc49c2ee8dff9ba07ba5c9a4)
 	- contains benign kixtart engine (named svchost.exe) and an encrypted and tokenized kixtart script (named svchost.bin)
 	
-#Kixtart Script (a176738655f7bd7270aa086db0f35451)
+# Kixtart Script (a176738655f7bd7270aa086db0f35451)
 	- Encrypted and tokenized 
 	- Developed a python script to decrypt and detokenize: https://github.com/jhumble/Kixtart-Detokenizer
 	- Full cleaned up kixtart script below
