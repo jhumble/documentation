@@ -1,14 +1,12 @@
 # Summary
-Recently observed a suspected Fin7 JSSLoader sample packed with previously unseen crypter. Interestingly, unlike most crypters which decrypt or extract an entire embedded payload at once, this crypter actually on the fly decrypts each function, calls it, then reencrypts it so that there is never a complete payload sitting in memory that can be dumped. 
+I recently observed a suspected Fin7 JSSLoader sample packed with a previously unseen crypter. Interestingly, unlike most crypters which decrypt or extract an entire embedded payload at once, this crypter actually on the fly decrypts each function, calls it, then reencrypts it so that there is never a complete payload sitting in memory that can be dumped. 
 
 Attack flow:
     Quickbooks themed phish with link -> WSF (WINGKNIGHT) downloader -> Crypted JSSLoader/BIRDWATCH
 
-# IOCS
-Crypted samples:
-- ![91ae7d316b081acf783a2127b5611c17](https://www.virustotal.com/gui/file/f21a5d973c166a38115be2355ef66ed364718545a3194b65a457921c782fdffd) 
-    - ![Unpacked copy produced by my script](https://www.virustotal.com/gui/file/461e69fb952c7f83a2b73c2c27b6b4cce41bf438966ce7447a140c8675f2c319)
-- 9eef2282daef2970a546afd4607af07f
+After unpacking, the JSSLoader malware itself seems largely unchanged from recent reporting:
+- https://www.proofpoint.com/us/blog/threat-insight/jssloader-recoded-and-reloaded
+- https://www.mandiant.com/resources/evolution-of-fin7
 
 # Initialization
 The Crypter starts off by parsing an array of encrypted function lengths that are located relative to EIP. By starting with a hardcoded addresss for the first function, it keeps adding these lengths in order to calculate the address of the next encrypted function. This list of function pointes is saved and referenced later by the wrapper function.
@@ -20,7 +18,7 @@ It then xor decrypts the "wrapper" function. All further function calls are perf
 # Wrapper Function
 All functions are decrypted with the same xor key. I only have two samples to base this on so far, but the key seems to always be located 0x152 bytes after the last function. 
 
-All further calls in the program look like this: 
+All further calls in the program are made through the wrapper function. They look like this: 
 ![example](img/call_example.png)
 Where 0x82 is the index into the array of encrypted function pointers and the other two args are arguments passed onto that function after it is decrypted. 
 
@@ -204,7 +202,7 @@ It will also identify the "encrypted" strings, decrypt them and dump those out. 
 
 I'd eventually like to unpack those strings and replace references to `get_string` with direct references to the decrypted strings, but it is more difficult than the function replacements and I don't have it working  yet. 
 
-Example usage/output:
+Usage:
 ```
 python3 ~/tools/Unpackers-and-Config-Extractors/jssloader/unpack.py ~/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe -h
 usage: unpack.py [-h] [-v] [-o OUT] [-s] files [files ...]
@@ -220,7 +218,7 @@ optional arguments:
   -o OUT, --out OUT  Path to dump unpacked file to
   -s, --strings      print decrypted strings
 ```
-
+Example output:
 ```
 python3 ~/tools/Unpackers-and-Config-Extractors/jssloader/unpack.py ~/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe  -vv -s
 2022-06-06 16:01:54,068 - JSSLoader Unpacker - INFO     Processing /Users/jhumble/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe
@@ -236,3 +234,10 @@ Index    Decrypted String
 02        beohv                                                        faint
 ...
 ```
+
+# Samples
+Crypted samples:
+- ![91ae7d316b081acf783a2127b5611c17](https://www.virustotal.com/gui/file/f21a5d973c166a38115be2355ef66ed364718545a3194b65a457921c782fdffd)  (C2: rodericwalter.com) 
+    - ![Unpacked copy produced by my script](https://www.virustotal.com/gui/file/461e69fb952c7f83a2b73c2c27b6b4cce41bf438966ce7447a140c8675f2c319)
+- 9eef2282daef2970a546afd4607af07f (C2: 1southernstrongclothing[.]com)
+
