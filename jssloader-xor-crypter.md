@@ -241,3 +241,192 @@ Crypted samples:
     - [Unpacked copy produced by my script](https://www.virustotal.com/gui/file/461e69fb952c7f83a2b73c2c27b6b4cce41bf438966ce7447a140c8675f2c319)
 - 9eef2282daef2970a546afd4607af07f (C2: 1southernstrongclothing[.]com)
 
+# YARA Detection:
+```
+import "pe"
+rule Classification_Fin7_JSSLoader_Crypter: BIRDWATCH JSSLoader Fin7 {
+    meta:
+        tlp = "amber"
+        author = "Jared Anderson, Jeremy Humble"
+        date = "2022-05-31"
+        description = "JSSLoader"
+        aliases = "BIRDWATCH,JSSLoader"
+        hashes = "1da6525ae1ef83b6f1dc02396ef0933732f9ffdfca0fda9b2478d32a54e3069b"
+
+    strings:
+        /*
+            00404E55 | 47                       | inc edi                                 |
+            00404E56 | 83FE 1E                  | cmp esi,1E                              |
+            00404E59 | 7F 13                    | jg 9eef2282daef2970a546afd4607af07f.404 |
+            00404E5B | 51                       | push ecx                                |
+            00404E5C | 50                       | push eax                                |
+            00404E5D | 8A0430                   | mov al,byte ptr ds:[eax+esi]            |
+            00404E60 | 8A21                     | mov ah,byte ptr ds:[ecx]                |
+            00404E62 | 03F7                     | add esi,edi                             |
+            00404E64 | 32C4                     | xor al,ah                               |
+            00404E66 | 8801                     | mov byte ptr ds:[ecx],al                |
+            00404E68 | 58                       | pop eax                                 |
+            00404E69 | 59                       | pop ecx                                 |
+            00404E6A | 03CF                     | add ecx,edi                             |
+            00404E6C | EB 02                    | jmp 9eef2282daef2970a546afd4607af07f.40 |
+            00404E6E | 33F6                     | xor esi,esi                             |
+            00404E70 | 3BCA                     | cmp ecx,edx                             |
+            00404E72 | 72 E2                    | jb 9eef2282daef2970a546afd4607af07f.404 |
+        */
+
+        // Split up by register so we have at least 2 hard bytes at the start to prevent yara from complaining about performance
+        $decrypt_eax =  {
+                            83 F8 ??                        [0-12]
+                            (E9|EB|7F|0F) ??                [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            8A ?? ??                        [0-12]
+                            8A ??                           [0-12]
+                            03 (F0|F1|F2|F3|F5|F6|F7)       [0-12]
+                            32 (C1|C2|C3|C4|C5|C6|C7|C8)    [0-12]
+                            88 (01|09|11|19|29|31|39) 
+                        }
+
+        $decrypt_ecx =  {
+                            83 F9 ??                        [0-12]
+                            (E9|EB|7F|0F) ??                [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            8A ?? ??                        [0-12]
+                            8A ??                           [0-12]
+                            03 (F0|F1|F2|F3|F5|F6|F7)       [0-12]
+                            32 (C1|C2|C3|C4|C5|C6|C7|C8)    [0-12]
+                            88 (01|09|11|19|29|31|39) 
+                        }
+
+        $decrypt_edx =  {
+                            83 FA ??                        [0-12]
+                            (E9|EB|7F|0F) ??                [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            8A ?? ??                        [0-12]
+                            8A ??                           [0-12]
+                            03 (F0|F1|F2|F3|F5|F6|F7)       [0-12]
+                            32 (C1|C2|C3|C4|C5|C6|C7|C8)    [0-12]
+                            88 (01|09|11|19|29|31|39) 
+                        }
+        $decrypt_ebx =  {
+                            83 FB ??                        [0-12]
+                            (E9|EB|7F|0F) ??                [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            8A ?? ??                        [0-12]
+                            8A ??                           [0-12]
+                            03 (F0|F1|F2|F3|F5|F6|F7)       [0-12]
+                            32 (C1|C2|C3|C4|C5|C6|C7|C8)    [0-12]
+                            88 (01|09|11|19|29|31|39) 
+                        }
+
+        $decrypt_ebp =  {
+                            83 FD ??                        [0-12]
+                            (E9|EB|7F|0F) ??                [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            8A ?? ??                        [0-12]
+                            8A ??                           [0-12]
+                            03 (F0|F1|F2|F3|F5|F6|F7)       [0-12]
+                            32 (C1|C2|C3|C4|C5|C6|C7|C8)    [0-12]
+                            88 (01|09|11|19|29|31|39) 
+                        }
+
+        $decrypt_esi =  {
+                            83 FE ??                        [0-12]
+                            (E9|EB|7F|0F) ??                [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            8A ?? ??                        [0-12]
+                            8A ??                           [0-12]
+                            03 (F0|F1|F2|F3|F5|F6|F7)       [0-12]
+                            32 (C1|C2|C3|C4|C5|C6|C7|C8)    [0-12]
+                            88 (01|09|11|19|29|31|39) 
+                        }
+
+        /*$decrypt_edi =  {
+                            83 FF ??                        [0-12]
+                            (E9|EB|7F|0F) ??                [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            (50|51|52|53|55|56|57)          [0-12]
+                            8A ?? ??                        [0-12]
+                            8A ??                           [0-12]
+                            03 (F0|F1|F2|F3|F5|F6|F7)       [0-12]
+                            32 (C1|C2|C3|C4|C5|C6|C7|C8)    [0-12]
+                            88 (01|09|11|19|29|31|39) 
+                        }*/
+
+
+    /*
+        00401124 | 5F                       | pop edi                                              | edi:EntryPoint
+        00401125 | 8947 FC                  | mov dword ptr ds:[edi-4],eax                         |
+        00401128 | 8947 F8                  | mov dword ptr ds:[edi-8],eax                         |
+        0040112B | 50                       | push eax                                             |
+        0040112C | E2 FD                    | loop birdwatch.40112B                                |
+        0040112E | 57                       | push edi                                             | edi:EntryPoint
+    */
+    $clear_stack = {    5?              
+                        89 4? FC 
+                        89 4? F8
+                        5?
+                        E2 FD
+                        5?
+                    }
+    /*
+        00401000 | B9 00100000              | mov ecx,1000                                         |
+        00401005 | 33C0                     | xor eax,eax                                          |
+        00401007 | E8 18010000              | call birdwatch.401124                                |
+    */
+    $entry = {  B9 00 10 00 00
+                33 C0
+                (E8 | FF)
+             }
+    /*
+        ENCRYPTED STRINGS
+        idx       Encrypted                                                    Decrypted
+        -----------------------------------------------------------------------------------
+        32        tTsdpCbloh                                                   UserDomain
+        33        PRUEBVFQN[dhpqprueP[gedhg                                    SOFTWARE\Microsoft\Office
+        34        pqfcjqxbm`fs/qpbo                                            rodericwalter.com
+        35        ;!$                                                          ":"
+        36        #zbmfl;!$                                                    {"name":"
+        37        -\e!tdujqng^mh`djkur;!]                                      ],"desktop_file_list":[
+        38        0.;dtisbqh!s                                                 //e:jscript
+        3A        pV7v6                                                        Wow64
+        3B        pVeq                                                         Word
+        3C        d.unhpdut6'!%fc!kg."                                      /c timeout 5 && del /f
+        3D        -!t!txohpe;!}                                                ","sysinfo":{
+        3E        k-u                                                          .js
+        3F        #zjefk;!$                                                    {"file":"
+        40        tbsbqh/sydg                                                  cscript.exe
+        41        0.;dcudrjquo"                                                //e:vbscript
+        42        vbmq8.8-/72                                                  curl/7.78.0
+    */
+    $encrypted_string_UserDomain = "tTsdpCbloh"
+    $encrypted_string_SOFTWARE = "PRUEBVFQN["
+    $encrypted_string_name = "#zbmfl;!$"
+    $encrypted_string_jscript = "0.;dtisbqh!s"
+    $encrypted_string_cscript = "tbsbqh/sydg"
+    $encrypted_string_UA = "vbmq8.8-/72"
+    $encrypted_string_desktop = "tdujqng^mh`djkur"
+    $encrypted_string_sysinfo = "-!t!txohpe;!}"
+    
+
+    condition:
+        $entry at pe.entry_point or
+        $clear_stack or
+        2 of ($encrypted_string*) or
+        any of ($decrypt*) or
+        (
+            filesize < 100KB and
+            filesize > 5KB and
+            pe.number_of_sections == 1 and
+            pe.sections[1].characteristics & pe.SECTION_MEM_EXECUTE and
+            pe.sections[1].characteristics & pe.SECTION_MEM_READ and
+            pe.sections[1].characteristics & pe.SECTION_MEM_WRITE
+        )
+
+}
+```
