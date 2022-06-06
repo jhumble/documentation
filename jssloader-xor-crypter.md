@@ -57,6 +57,7 @@ Decryption is easier to understand with a quick example:
 00405FAB | 5B                       | pop ebx                                 |
 00405FAC | C3                       | ret                                     |
 ```
+
 <details>
 <summary>Example strings output</summary>
 |Index|Encrypted String|Decrypted String|
@@ -145,7 +146,7 @@ Decryption is easier to understand with a quick example:
 |54| >qv$| r=%u|
 |55| #zbmfl;!$| {"name":"|
 |56| w-ta| .vbs|
-|57| Q!pqfbtrsn+)#)#9$| "Processor***":""|
+|57| Q!pqfbtrsn+)#)#9$| "Processor\*\*\*":""|
 |58| tbsbqh/sydg| cscript.exe|
 |59| PRUEBVFQN[dhpqprueP[gedhg| SOFTWARE\Microsoft\Office|
 |5A| PRUEBVFQN[dhpqprueX[ohpctvD[stfqumfUtqph]mvQp| SOFTWARE\Microsoft\Windows\CurrentVersion\Run|
@@ -157,7 +158,7 @@ Decryption is easier to understand with a quick example:
 |60| ffdsel!kbemhed| getcmdl failed|
 |61| tV`132e-mk| Ws2_32.dll|
 |62| nb/cydg| cmd.exe|
-|63| D!nnvofsTqtxfs-lbq+l+);!#!| "ComputerSystem,ram***":""|
+|63| D!nnvofsTqtxfs-lbq+l+);!#!| "ComputerSystem,ram\*\*\*":""|
 |65| @.eh?| /?id=|
 |66| e-mk| .dll|
 |67| c#en!x!<JZ/NjEfk;\S9bdBcmkfSuw('| $body = [IO.File]::ReadAllText('|
@@ -172,10 +173,10 @@ Decryption is easier to understand with a quick example:
 |70| -|q!pqfbtrtd;!]| },"processes":[|
 |71| #zjefk;!$| {"file":"|
 |72| #zpgur;!$| {"host":"|
-|73| fv&<w| we=%u|
+|73| fv&\<w| we=%u|
 |74| pm| no|
 |75| jV4m`1qNsdu`ohTftxfso| Win32_OperatingSystem|
-|76| P!fobqjshmzRurnd+)#)#9$| "OperatingSystem***":""|
+|76| P!fobqjshmzRurnd+)#)#9$| "OperatingSystem\*\*\*":""|
 |77| ~!| "}|
 |78| u-uw| .txt|
 |79| d.sotmc4k/1yd!d| /c rundll32.exe |
