@@ -58,8 +58,8 @@ Decryption is easier to understand with a quick example:
 00405FAC | C3                       | ret                                     |
 ```
 <details>
-    <summary>Example strings output</summary>
-|Index| Encrypted String|Decrypted String|
+<summary>Example strings output</summary>
+|Index|Encrypted String|Decrypted String|
 |---|---|---|
 |01| bqoh| rain|
 |02| beohv| faint|
