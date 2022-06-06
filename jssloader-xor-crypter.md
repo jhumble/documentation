@@ -57,6 +57,139 @@ Decryption is easier to understand with a quick example:
 00405FAB | 5B                       | pop ebx                                 |
 00405FAC | C3                       | ret                                     |
 ```
+<details>
+    <summary>Example strings output</summary>
+|Index| Encrypted String|Decrypted String|
+|---|---|---|
+|01| bqoh| rain|
+|02| beohv| faint|
+|03| irs`m| shark|
+|04| jgsds`ib{| hierarchy|
+|05| sattj| brush|
+|06| sfnhd`g| grimace|
+|07| fqpbof{hg| recognize|
+|08| plotbsoh| mountain|
+|09| mod`g| place|
+|0A| sotdvrfq| pressure|
+|0B| fcbk{| delay|
+|0C| puvkumfdt| volunteer|
+|0D| ors`n| snarl|
+|0E| irn`g| shame|
+|0F| u`jsvsfc| attitude|
+|10| pomn| pool|
+|11| sophjqzs| priority|
+|12| ord`m| snack|
+|13| bbfspfzq| category|
+|14| zl| my|
+|15| fmlbbkfb| necklace|
+|16| fcpbbqjsfu| decorative|
+|17| psfvt| tower|
+|18| peotbsoh| fountain|
+|19| pruebvfq| software|
+|1A| jrhdg| siege|
+|1B| sse`g| trade|
+|1C| sfw`md| gravel|
+|1D| fajfomohi| beginning|
+|1E| seh`bqum| fragrant|
+|1F| ydddutg| execute|
+|20| snisenyn| orthodox|
+|21| bgnqven| harmful|
+|22| mbt`srpno| classroom|
+|23| tnssd`{hg| ostracize|
+|24| mae`g| blade|
+|25| zgoounjgfy| hypnothize|
+|26| fffmbqn| general|
+|27| d`jgwdg| achieve|
+|28| poudzq| poetry|
+|29| odvrfq| ensure|
+|2A| sothon| prison|
+|2B| jeem| find|
+|2C| sowdodv| prevent|
+|2D| ydssd`v| extract|
+|2E| sotdehodjsm`| presidential|
+|2F| sfe`btfs| graduate|
+|30| prutj| south|
+|31| fvld| week|
+|32| 0.;dtisbqh!s| //e:jscript |
+|33| -!v!fr#q#9| ","user":"|
+|34| jV4m`1sOdntdprt| Win32_Processor|
+|35| POUR| POST|
+|36| fxu| yes|
+|37| u%qx>dc| &type=a|
+|38| *&| ')|
+|39| PRUEBVFQN[dhpqprueO[UDGbqflpvlqTudqtO[QC| SOFTWARE\Microsoft\NET Framework Setup\NDP|
+|3A| PQUND[NH3U| ROOT\CIMV2|
+|3B| bBibTderpRuebvfq| CacheSsdSoftware|
+|3C| #+gNjefbfU#q#9| ,"OfficeVer":"|
+|3D| -!e!nnj`#m#9| ","domain":"|
+|3E| FRFKUB+GPQ!L| SELECT * FROM |
+|3F| 0.;dcudrjquo"| //e:vbscript |
+|40| pVeq| Word|
+|41| k-u| .js|
+|42| fFIstnOsn`Xd| GetHostNameW|
+|43| -!t!txohpe;!}| ","sysinfo":{|
+|44| yDfbn| Excel|
+|45| s`otgj`fkf| arun failed|
+|46| -!q!eh;!$| ","pid":"|
+|47| PVLQSFVNR| WORKGROUP|
+|48| vNmspnm| Outlook|
+|49| m$w| %lu|
+|4A| d.unhpdut6'!%fc!kg."| /c timeout 5 && del /f |
+|4B| jV4m`1pBqlutsdzRurnd| Win32_ComputerSystem|
+|4C| v$| %u|
+|4D| vbmq8.8-/72| curl/7.78.0|
+|4F| -!#jrfy;!$| ", "size":"|
+|51| oTojxn!mpbnlo`f| Unknown command|
+|52| tTsdpCbloh| UserDomain|
+|53| -\b!jcgm#n|9q!s``sgne^nnj`#m#9| ],"adinfo":{"part_of_domain":"|
+|54| >qv$| r=%u|
+|55| #zbmfl;!$| {"name":"|
+|56| w-ta| .vbs|
+|57| Q!pqfbtrsn+)#)#9$| "Processor***":""|
+|58| tbsbqh/sydg| cscript.exe|
+|59| PRUEBVFQN[dhpqprueP[gedhg| SOFTWARE\Microsoft\Office|
+|5A| PRUEBVFQN[dhpqprueX[ohpctvD[stfqumfUtqph]mvQp| SOFTWARE\Microsoft\Windows\CurrentVersion\Run|
+|5B| #+| ,"|
+|5C| pV7v6| Wow64|
+|5D| -| ,|
+|5E| D.qxnsdirmd!k$| /C powershell "|
+|5F| pBqlutsdbMfl| ComputerName|
+|60| ffdsel!kbemhed| getcmdl failed|
+|61| tV`132e-mk| Ws2_32.dll|
+|62| nb/cydg| cmd.exe|
+|63| D!nnvofsTqtxfs-lbq+l+);!#!| "ComputerSystem,ram***":""|
+|65| @.eh?| /?id=|
+|66| e-mk| .dll|
+|67| c#en!x!<JZ/NjEfk;\S9bdBcmkfSuw('| $body = [IO.File]::ReadAllText('|
+|68| -\e!tdujqng^mh`djkur;!]| ],"desktop_file_list":[|
+|69| #+fMGsbqflpvlq#r#9| ,"NetFrameworks":"|
+|6A| ~!| "}}|
+|6B| PRUEBVFQX[xn5532pMfcN[dhpqprueP[gedhg| SOFTWARE\Wow6432Node\Microsoft\Office|
+|6C| ;!$| ":"|
+|6D| RVN| WQL|
+|6E| prutfgoqurpqhmmbunjghmd-nn| southernstrongclothing.com|
+|6F| f-fw| .exe|
+|70| -|q!pqfbtrtd;!]| },"processes":[|
+|71| #zjefk;!$| {"file":"|
+|72| #zpgur;!$| {"host":"|
+|73| fv&<w| we=%u|
+|74| pm| no|
+|75| jV4m`1qNsdu`ohTftxfso| Win32_OperatingSystem|
+|76| P!fobqjshmzRurnd+)#)#9$| "OperatingSystem***":""|
+|77| ~!| "}|
+|78| u-uw| .txt|
+|79| d.sotmc4k/1yd!d| /c rundll32.exe |
+|7A| +[| \*|
+|7B| QHMGBOJOE-MK| IPHLPAPI.DLL|
+|7C| IRMD4K/1mcn| SHELL32.dll|
+|7D| ummc/kmcn| ntdll.dll|
+|7E| FJOQMD32e-mk| KERNEL32.dll|
+|7F| mn4d/1mcn| ole32.dll|
+|80| MNBDUT32e-mk| OLEAUT32.dll|
+|81| JVJMFM/Smcn| WININET.dll|
+|82| TTSD32e-mk| USER32.dll|
+|83| E@BUJO32e-mk| ADVAPI32.dll|
+</details>
 # Script
 I wrote a ![script](https://github.com/jhumble/Unpackers-and-Config-Extractors/blob/master/jssloader/unpack.py) to parse out the encrypted functions, decrypt them, and replace calls to the wrapper function with calls directly to the decrypted functions to simplify analysis.
 
