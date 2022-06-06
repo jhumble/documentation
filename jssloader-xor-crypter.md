@@ -59,6 +59,7 @@ Decryption is easier to understand with a quick example:
 ```
 
 <details><summary>Open to view Data Dictionary</summary>
+
 |Index|Encrypted String|Decrypted String|
 |---|---|---|
 |01| bqoh| rain|
