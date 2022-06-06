@@ -58,6 +58,7 @@ Decryption is easier to understand with a quick example:
 00405FAC | C3                       | ret                                     |
 ```
 
+<details><summary>Open to view Data Dictionary</summary>
 |Index|Encrypted String|Decrypted String|
 |---|---|---|
 |01| bqoh| rain|
@@ -188,6 +189,7 @@ Decryption is easier to understand with a quick example:
 |81| JVJMFM/Smcn| WININET.dll|
 |82| TTSD32e-mk| USER32.dll|
 |83| E@BUJO32e-mk| ADVAPI32.dll|
+</details>
 
 # Script
 I wrote a ![script](https://github.com/jhumble/Unpackers-and-Config-Extractors/blob/master/jssloader/unpack.py) to parse out the encrypted functions, decrypt them, and replace calls to the wrapper function with calls directly to the decrypted functions to simplify analysis.
