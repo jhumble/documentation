@@ -1,12 +1,13 @@
 # Summary
-Suspected Fin7 JSSLoader packed with previously unseen crypter. Interestingly, unlike most crypters which decrypt or extract an entire embedded payload at once, this crypter actually on the fly decrypts each function, calls it, then reencrypts it so that there is never a complete payload sitting in memory that can be dumped. 
+Recently observed a suspected Fin7 JSSLoader sample packed with previously unseen crypter. Interestingly, unlike most crypters which decrypt or extract an entire embedded payload at once, this crypter actually on the fly decrypts each function, calls it, then reencrypts it so that there is never a complete payload sitting in memory that can be dumped. 
 
 Attack flow:
     Quickbooks themed phish with link -> WSF (WINGKNIGHT) downloader -> Crypted JSSLoader/BIRDWATCH
 
 # IOCS
 Crypted samples:
-- ![91ae7d316b081acf783a2127b5611c17](https://www.virustotal.com/gui/file/f21a5d973c166a38115be2355ef66ed364718545a3194b65a457921c782fdffd) ![Unpacked copy produced by my script](https://www.virustotal.com/gui/file/461e69fb952c7f83a2b73c2c27b6b4cce41bf438966ce7447a140c8675f2c319)
+- ![91ae7d316b081acf783a2127b5611c17](https://www.virustotal.com/gui/file/f21a5d973c166a38115be2355ef66ed364718545a3194b65a457921c782fdffd) 
+    - ![Unpacked copy produced by my script](https://www.virustotal.com/gui/file/461e69fb952c7f83a2b73c2c27b6b4cce41bf438966ce7447a140c8675f2c319)
 - 9eef2282daef2970a546afd4607af07f
 
 # Initialization
