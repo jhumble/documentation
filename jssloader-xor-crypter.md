@@ -1,5 +1,5 @@
 # Summary
-I recently observed a suspected Fin7 JSSLoader sample packed with a previously unseen crypter. Interestingly, unlike most crypters which decrypt or extract an entire embedded payload at once, this crypter actually on the fly decrypts each function, calls it, then reencrypts it so that there is never a complete payload sitting in memory that can be dumped. 
+I recently observed a suspected Fin7/TA543 JSSLoader sample packed with a previously unseen crypter. Interestingly, unlike most crypters which decrypt or extract an entire embedded payload at once, this crypter actually decrypts each function on the fly, calls it, then reencrypts it so that there is never a complete payload sitting in memory that can be dumped. 
 
 Attack flow:
     Quickbooks themed phish with link -> WSF (WINGKNIGHT) downloader -> Crypted JSSLoader/BIRDWATCH
