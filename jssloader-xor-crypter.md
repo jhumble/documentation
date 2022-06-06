@@ -9,7 +9,7 @@ After unpacking, the JSSLoader malware itself seems largely unchanged from recen
 - https://www.mandiant.com/resources/evolution-of-fin7
 
 # Initialization
-The Crypter starts off by parsing an array of encrypted function lengths that are located relative to EIP. By starting with a hardcoded addresss for the first function, it keeps adding these lengths in order to calculate the address of the next encrypted function. This list of function pointes is saved and referenced later by the wrapper function.
+The Crypter starts off by parsing an array of encrypted function lengths that are located relative to EIP. By starting with a hardcoded addresss for the first function, it keeps adding these lengths in order to calculate the address of the next encrypted function. This list of function pointers is saved and referenced later by the wrapper function.
 
 It then xor decrypts the "wrapper" function. All further function calls are performed using this wrapper function, which accepts a function number, decrypts it, calls it, then reencrypts it:
 ![Wrapper Function](img/wrapper.png)
