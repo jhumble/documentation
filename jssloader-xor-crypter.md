@@ -2,19 +2,23 @@
 Suspected Fin7 JSSLoader packed with previously unseen crypter. Interestingly, unlike most crypters which decrypt or extract an entire embedded payload at once, this crypter actually on the fly decrypts each function, calls it, then reencrypts it so that there is never a complete payload sitting in memory that can be dumped. 
 
 Attack flow:
-    Quickbooks themed phish with link -> WSF (WINGKNIGHT) payload -> JSSLoader/BIRDWATCH
+    Quickbooks themed phish with link -> WSF (WINGKNIGHT) downloader -> Crypted JSSLoader/BIRDWATCH
 
+# IOCS
+Crypted samples:
+![91ae7d316b081acf783a2127b5611c17](https://www.virustotal.com/gui/file/f21a5d973c166a38115be2355ef66ed364718545a3194b65a457921c782fdffd) ![Unpacked copy produced by my script](https://www.virustotal.com/gui/file/461e69fb952c7f83a2b73c2c27b6b4cce41bf438966ce7447a140c8675f2c319)
+9eef2282daef2970a546afd4607af07f
 
 # Initialization
-The malware starts off by parsing an array of encrypted function lengths that are located relative to EIP. By starting with a hardcoded addresss for the first function, it keeps adding these lengths in order to calculate the address of the next encrypted function. This list of function pointes is saved and referenced later by the wrapper function.
+The Crypter starts off by parsing an array of encrypted function lengths that are located relative to EIP. By starting with a hardcoded addresss for the first function, it keeps adding these lengths in order to calculate the address of the next encrypted function. This list of function pointes is saved and referenced later by the wrapper function.
 
 It then xor decrypts the "wrapper" function. All further function calls are performed using this wrapper function, which accepts a function number, decrypts it, calls it, then reencrypts it:
 ![Wrapper Function](img/wrapper.png)
 
-All functions are decrypted with the same xor key. Which seems to be located 0x152 bytes after the last function. 
 
+# Wrapper Function
+All functions are decrypted with the same xor key. I only have two samples to base this on so far, but the key seems to always be located 0x152 bytes after the last function. 
 
-# Wrapper Function Usage
 All further calls in the program look like this: 
 ![example](img/call_example.png)
 Where 0x82 is the index into the array of encrypted function pointers and the other two args are arguments passed onto that function after it is decrypted. 
@@ -58,7 +62,7 @@ Decryption is easier to understand with a quick example:
 00405FAC | C3                       | ret                                     |
 ```
 
-<details><summary>Open to view Data Dictionary</summary>
+<details><summary>Strings</summary>
 
 |Index|Encrypted String|Decrypted String|
 |---|---|---|
@@ -201,16 +205,33 @@ I'd eventually like to unpack those strings and replace references to `get_strin
 
 Example usage/output:
 ```
-python3 ~/tools/Unpackers-and-Config-Extractors/jssloader/unpack.py ~/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe  -vv
-2022-06-06 15:33:20,946 - JSSLoader Unpacker - INFO     Processing /Users/jhumble/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe
-2022-06-06 15:33:20,970 - JSSLoader Unpacker - INFO     Removing xor function 0x00404E20 from set of functions to decrypt (already decrypted at start)
-2022-06-06 15:33:20,971 - JSSLoader Unpacker - INFO     Found call to main. function offset: 0x68 addr: 0x00406440
-2022-06-06 15:33:20,971 - JSSLoader Unpacker - CRITICAL main patch: before: b'8bc48928c740043000000050ffd18b4c240889690a83c4106a68ffd1' after: b'e8b55200009090909090909090909090909090909090909090909090'
-2022-06-06 15:33:20,971 - JSSLoader Unpacker - CRITICAL Patched call to main
-2022-06-06 15:33:20,971 - JSSLoader Unpacker - INFO     xor passphrase: b'6558076622fdd7d9353f4a294aa5e01e6ebcfc21f10fa1244fddefb592e019'
-2022-06-06 15:33:20,978 - JSSLoader Unpacker - INFO     Found decryption function 0x00403820
-2022-06-06 15:33:20,991 - JSSLoader Unpacker - INFO     Failed to patch 0x00007795: Unable to get rva from addr 0x0000779C
-2022-06-06 15:33:20,991 - JSSLoader Unpacker - INFO     Failed to patch 0x000078F9: Unable to get rva from addr 0x00007900
-2022-06-06 15:33:20,991 - JSSLoader Unpacker - INFO     Failed to patch 0x00007985: Unable to get rva from addr 0x0000798C
-2022-06-06 15:33:20,991 - JSSLoader Unpacker - CRITICAL Dumping unpacked file to /Users/jhumble/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe.unpacked
+python3 ~/tools/Unpackers-and-Config-Extractors/jssloader/unpack.py ~/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe -h
+usage: unpack.py [-h] [-v] [-o OUT] [-s] files [files ...]
+
+unpack.py [OPTION]... [FILES]...
+
+positional arguments:
+  files
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -v, --verbose      Increase verbosity. Can specify multiple times for more verbose output
+  -o OUT, --out OUT  Path to dump unpacked file to
+  -s, --strings      print decrypted strings
+```
+
+```
+python3 ~/tools/Unpackers-and-Config-Extractors/jssloader/unpack.py ~/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe  -vv -s
+2022-06-06 16:01:54,068 - JSSLoader Unpacker - INFO     Processing /Users/jhumble/RE/samples/fin7/2022-05-26/9eef2282daef2970a546afd4607af07f.exe
+2022-06-06 16:01:54,094 - JSSLoader Unpacker - INFO     Removing xor function 0x00404E20 from set of functions to decrypt (already decrypted at start)
+2022-06-06 16:01:54,094 - JSSLoader Unpacker - INFO     Found call to main. function offset: 0x68 addr: 0x00406440
+2022-06-06 16:01:54,094 - JSSLoader Unpacker - INFO     main patch: before: b'8bc48928c740043000000050ffd18b4c240889690a83c4106a68ffd1' after: b'e8b55200009090909090909090909090909090909090909090909090'
+2022-06-06 16:01:54,094 - JSSLoader Unpacker - INFO     xor passphrase: b'6558076622fdd7d9353f4a294aa5e01e6ebcfc21f10fa1244fddefb592e019'
+2022-06-06 16:01:54,102 - JSSLoader Unpacker - INFO     Found decryption function 0x00403820
+2022-06-06 16:01:54,117 - JSSLoader Unpacker - INFO     Found encrypted string array at 0x00407A51
+Strings:
+Index    Decrypted String
+01        bqoh                                                         rain
+02        beohv                                                        faint
+...
 ```
