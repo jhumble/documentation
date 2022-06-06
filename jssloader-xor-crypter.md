@@ -23,9 +23,9 @@ All further calls in the program are made through the wrapper function. They loo
 Where 0x82 is the index into the array of encrypted function pointers and the other two args are arguments passed onto that function after it is decrypted. 
 
 # Encrypted Strings
-The string decryption function in shown and annoted below. strings are accessed similarly to the functions with a function `get_string(*decrypted_string, index)` which will decrypt the appropriate string and copy it to the supplied buffer.
+The string decryption function in shown and annoted below. Strings are accessed similarly to the functions with a function `get_string(*decrypted_string, index)` which will decrypt the appropriate string and copy it to the supplied buffer.
 
-To decrypt, every pair of characters are swapped, then 1 is added the first and 1 is subtracted from the second. If the string length is odd, the last character has 2 subtracted from it.
+To decrypt, every pair of characters are swapped. Then 1 is added the first and 1 is subtracted from the second. If the string length is odd, the last character has 2 subtracted from it.
 Decryption is easier to understand with a quick example:
     `BCDEF` => `DAFCD`
 
@@ -198,7 +198,7 @@ Decryption is easier to understand with a quick example:
 # Script
 I wrote a ![script](https://github.com/jhumble/Unpackers-and-Config-Extractors/blob/master/jssloader/unpack.py) to parse out the encrypted functions, decrypt them, and replace calls to the wrapper function with calls directly to the decrypted functions to simplify analysis.
 
-It will also identify the "encrypted" strings, decrypt them and dump those out. Those strings are accessed similarly to the functions with a function `get_string(*decrypted_string, index)` which will decrypt the appropriate string and copy it to the supplied buffer. 
+It will also identify the "encrypted" strings, decrypt them and dump those out.
 
 I'd eventually like to unpack those strings and replace references to `get_string` with direct references to the decrypted strings, but it is more difficult than the function replacements and I don't have it working  yet. 
 
