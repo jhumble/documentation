@@ -20,7 +20,8 @@ All functions are decrypted with the same xor key. I only have two samples to ba
 
 All further calls in the program are made through the wrapper function. They look like this: 
 ![example](img/call_example.png)
-Where 0x82 is the index into the array of encrypted function pointers and the other two args are arguments passed onto that function after it is decrypted. 
+Where 0x82 is the index into the array of encrypted function pointers and the other two args are arguments passed onto that function after it is decrypted. After running the script, these calls with look like this, with the function number push nop'd out and the call being made directly to the already decrypted function: 
+![patched](img/wrapper_replaced.png)
 
 # Encrypted Strings
 The string decryption function in shown and annoted below. Strings are accessed similarly to the functions with a function `get_string(*decrypted_string, index)` which will decrypt the appropriate string and copy it to the supplied buffer.
