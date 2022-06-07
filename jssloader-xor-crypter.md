@@ -19,8 +19,11 @@ It then xor decrypts the "wrapper" function. All further function calls are perf
 All functions are decrypted with the same xor key. I only have two samples to base this on so far, but the key seems to always be located 0x152 bytes after the last function. 
 
 All further calls in the program are made through the wrapper function. They look like this: 
+
 ![example](img/call_example.png)
+
 Where 0x82 is the index into the array of encrypted function pointers and the other two args are arguments passed onto that function after it is decrypted. After running the script, these calls with look like this, with the function number push nop'd out and the call being made directly to the already decrypted function: 
+
 ![patched](img/wrapper_replaced.png)
 
 # Encrypted Strings
