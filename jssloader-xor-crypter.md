@@ -200,7 +200,7 @@ Decryption is easier to understand with a quick example:
 </details>
 
 # Script
-I wrote a ![script](https://github.com/jhumble/Unpackers-and-Config-Extractors/blob/master/jssloader/unpack.py) to parse out the encrypted functions, decrypt them, and replace calls to the wrapper function with calls directly to the decrypted functions to simplify analysis.
+The ![script](https://github.com/jhumble/Unpackers-and-Config-Extractors/blob/master/jssloader/unpack.py) parses the encrypted functions, decrypts them, and replaces calls to the wrapper function with calls directly to the decrypted functions to simplify analysis.
 
 It will also identify the "encrypted" strings, decrypt them and dump those out.
 
