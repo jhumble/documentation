@@ -2,7 +2,7 @@
 I recently observed a suspected Fin7/TA543 JSSLoader sample packed with a previously unseen crypter. Interestingly, unlike most crypters which decrypt or extract an entire embedded payload at once, this crypter actually decrypts each function on the fly, calls it, then reencrypts it so that there is never a complete payload sitting in memory that can be dumped. I developed a ![script](https://github.com/jhumble/Unpackers-and-Config-Extractors/blob/master/jssloader/unpack.py) to decrypt these functions and dump out a complete payload. 
 
 Attack flow:
-    Quickbooks themed phish with link -> WSF (WINGKNIGHT) downloader -> Crypted JSSLoader/BIRDWATCH
+    Quickbooks themed phish with link -> WSF (WINGKNIGHT) downloader -> JSSLoader/BIRDWATCH Crypted with CryptOne (see [unpacking script](https://github.com/jhumble/Unpackers-and-Config-Extractors/blob/master/CryptOne/unpack.py) and [yara rule](https://github.com/jhumble/Unpackers-and-Config-Extractors/blob/master/CryptOne/Classification_CryptOne.yar)) -> source level cryptedJSSLoader
 
 After unpacking, the JSSLoader malware itself seems largely unchanged from recent reporting:
 - https://www.proofpoint.com/us/blog/threat-insight/jssloader-recoded-and-reloaded
